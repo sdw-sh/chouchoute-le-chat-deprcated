@@ -1,3 +1,15 @@
+#include <WiFi.h>
+//https://randomnerdtutorials.com/esp32-ntp-client-date-time-arduino-ide/
+// https://github.com/taranais/NTPClient
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+
+#include "NetworkCredentials.h"
+
+
+const char* ssid = SSID;
+const char* networkPwd = NETWORKPWD;
+
 
 
 int ledPin = 2;
@@ -8,7 +20,12 @@ int lastValue = 0;
 void setup() {
  pinMode(ledPin, OUTPUT);
  Serial.begin(115200);
- delay(1000);
+ for (int i = 0; i < 5; i++) {
+  digitalWrite(ledPin, HIGH);
+  delay(i * 50);
+  digitalWrite(ledPin, LOW); 
+  delay(i * 50);
+ }
 }
 void loop() {
 
@@ -21,10 +38,6 @@ void loop() {
   lastValue = resistorValue;
   Serial.println(resistorValue);
   delay(500);
- //digitalWrite(ledPin, HIGH);
- //delay(200);
- //digitalWrite(ledPin, LOW);
- //delay(200);
 }
 
 // https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
